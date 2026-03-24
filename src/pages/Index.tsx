@@ -168,9 +168,6 @@ const decisions = [
 function RiskMatrix() {
   return (
     <div>
-      <div style={{ fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "#64748b", fontWeight: 600, marginBottom: 10 }}>
-        Матрица рисков
-      </div>
       <div style={{ position: "relative", width: 200, height: 200 }}>
         <svg width={200} height={200} style={{ position: "absolute", top: 0, left: 0 }}>
           {[1, 2, 3, 4, 5].map((row) =>
@@ -286,24 +283,24 @@ function DecisionsTable() {
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", background: "#f1f5f9", minHeight: "100vh", padding: "20px", boxSizing: "border-box" }}>
-      <div style={{ maxWidth: 1440, margin: "0 auto", background: "#fff", borderRadius: 14, boxShadow: "0 4px 40px rgba(0,0,0,0.08)", padding: "24px 28px", border: "1px solid #e2e8f0" }}>
+    <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", background: "#eef0f3", minHeight: "100vh", padding: "24px", boxSizing: "border-box" }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", background: "#fff", borderRadius: 0, boxShadow: "0 2px 24px rgba(0,0,0,0.10)", border: "1px solid #d1d5db" }}>
 
-        {/* Header */}
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 20, borderBottom: "2px solid #f1f5f9", paddingBottom: 14 }}>
+        {/* Header — dark corporate bar */}
+        <div style={{ background: "#1a2332", padding: "18px 28px 16px", display: "flex", alignItems: "flex-end", justifyContent: "space-between", borderBottom: "3px solid #2563eb" }}>
           <div>
-            <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#94a3b8", fontWeight: 500, marginBottom: 3 }}>
+            <div style={{ fontSize: 9.5, letterSpacing: "0.18em", textTransform: "uppercase", color: "#6b8aad", fontWeight: 500, marginBottom: 4 }}>
               Ключевая аналитика · Система планирования персонала
             </div>
-            <h1 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", margin: 0, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 19, fontWeight: 600, color: "#f0f4f8", margin: 0, letterSpacing: "0", lineHeight: 1.2 }}>
               Дорожная карта: Аналитика «Службы»
             </h1>
-            <div style={{ fontSize: 11, color: "#64748b", marginTop: 3 }}>06 марта — 20 марта 2026</div>
+            <div style={{ fontSize: 11, color: "#6b8aad", marginTop: 4 }}>06 марта — 20 марта 2026</div>
           </div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end", maxWidth: 460 }}>
+          <div style={{ display: "flex", gap: 5, flexWrap: "wrap", justifyContent: "flex-end", maxWidth: 480 }}>
             {Object.entries(typeConfig).map(([key, cfg]) => (
-              <div key={key} style={{ display: "flex", alignItems: "center", gap: 4, background: cfg.bg, border: `1px solid ${cfg.border}`, borderRadius: 99, padding: "3px 9px", fontSize: 10, fontWeight: 600, color: cfg.color }}>
-                <Icon name={cfg.icon} fallback="CircleAlert" size={10} />
+              <div key={key} style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(255,255,255,0.07)", border: `1px solid rgba(255,255,255,0.12)`, borderLeft: `3px solid ${cfg.color}`, borderRadius: 2, padding: "3px 9px", fontSize: 10, fontWeight: 500, color: "#e2e8f0" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: cfg.color, flexShrink: 0, display: "inline-block" }} />
                 {cfg.label}
               </div>
             ))}
@@ -311,56 +308,60 @@ export default function Index() {
         </div>
 
         {/* Main layout */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 230px", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 240px", gap: 0 }}>
 
           {/* Left: Timeline + Decisions */}
-          <div>
-            <div style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "#64748b", fontWeight: 600, marginBottom: 12 }}>
-              Временная шкала
+          <div style={{ padding: "20px 22px", borderRight: "1px solid #e5e7eb" }}>
+
+            {/* Section label */}
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+              <div style={{ width: 3, height: 14, background: "#2563eb", borderRadius: 2 }} />
+              <span style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#374151", fontWeight: 600 }}>
+                Временная шкала
+              </span>
             </div>
 
             {/* Timeline dots row */}
-            <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 12 }}>
+            <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 14 }}>
               {events.map((ev, i) => (
                 <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
-                    {i > 0 && <div style={{ flex: 1, height: 2, background: "linear-gradient(90deg,#cbd5e1,#94a3b8)" }} />}
+                    {i > 0 && <div style={{ flex: 1, height: 1.5, background: "#d1d5db" }} />}
                     <div style={{
-                      width: 34,
-                      height: 34,
-                      borderRadius: "50%",
-                      background: ev.items.some((x) => x.type === "rejection") ? "#eff6ff" : ev.items.some((x) => x.type === "risk") ? "#fef2f2" : "#f0fdf4",
-                      border: `2.5px solid ${ev.items.some((x) => x.type === "rejection") ? "#2563eb" : ev.items.some((x) => x.type === "risk") ? "#dc2626" : "#16a34a"}`,
+                      width: 32,
+                      height: 32,
+                      borderRadius: 2,
+                      background: ev.items.some((x) => x.type === "rejection") ? "#2563eb" : ev.items.some((x) => x.type === "risk") ? "#dc2626" : "#15803d",
                       display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.07)", zIndex: 1,
+                      boxShadow: "0 1px 4px rgba(0,0,0,0.15)", zIndex: 1,
                     }}>
                       <Icon
                         name={ev.items.some((x) => x.type === "rejection") ? "XCircle" : ev.items.some((x) => x.type === "risk") ? "ShieldAlert" : "CheckCircle2"}
-                        size={15}
-                        style={{ color: ev.items.some((x) => x.type === "rejection") ? "#2563eb" : ev.items.some((x) => x.type === "risk") ? "#dc2626" : "#16a34a" }}
+                        size={14}
+                        style={{ color: "#fff" }}
                       />
                     </div>
-                    {i < events.length - 1 && <div style={{ flex: 1, height: 2, background: "linear-gradient(90deg,#94a3b8,#cbd5e1)" }} />}
+                    {i < events.length - 1 && <div style={{ flex: 1, height: 1.5, background: "#d1d5db" }} />}
                   </div>
-                  <div style={{ fontFamily: "'IBM Plex Mono'", fontSize: 11, fontWeight: 600, color: "#1e293b", marginTop: 5 }}>{ev.date}</div>
-                  <div style={{ fontSize: 9.5, color: "#64748b", textAlign: "center", marginTop: 1, lineHeight: 1.3, maxWidth: 80 }}>{ev.label}</div>
+                  <div style={{ fontFamily: "'IBM Plex Mono'", fontSize: 10.5, fontWeight: 600, color: "#111827", marginTop: 5 }}>{ev.date}</div>
+                  <div style={{ fontSize: 9, color: "#6b7280", textAlign: "center", marginTop: 1, lineHeight: 1.3, maxWidth: 78 }}>{ev.label}</div>
                 </div>
               ))}
             </div>
 
             {/* Event cards grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 8 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 6 }}>
               {events.map((ev, i) => (
-                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   {ev.items.map((item, j) => {
                     const cfg = typeConfig[item.type];
                     return (
-                      <div key={j} style={{ background: cfg.bg, border: `1px solid ${cfg.border}`, borderRadius: 7, padding: "5px 7px", borderLeft: `3px solid ${cfg.color}` }}>
+                      <div key={j} style={{ background: "#fafafa", border: "1px solid #e5e7eb", borderRadius: 2, padding: "5px 7px", borderLeft: `3px solid ${cfg.color}` }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 3 }}>
-                          <Icon name={cfg.icon} fallback="CircleAlert" size={9} style={{ color: cfg.color, flexShrink: 0 }} />
-                          <span style={{ fontSize: 8.5, fontWeight: 700, color: cfg.color, textTransform: "uppercase", letterSpacing: "0.05em" }}>{cfg.label}</span>
+                          <span style={{ width: 5, height: 5, borderRadius: "50%", background: cfg.color, flexShrink: 0, display: "inline-block" }} />
+                          <span style={{ fontSize: 8, fontWeight: 700, color: cfg.color, textTransform: "uppercase", letterSpacing: "0.06em" }}>{cfg.label}</span>
                         </div>
-                        <p style={{ margin: 0, fontSize: 9.5, color: "#334155", lineHeight: 1.45 }}>{item.text}</p>
+                        <p style={{ margin: 0, fontSize: 9.5, color: "#374151", lineHeight: 1.45 }}>{item.text}</p>
                       </div>
                     );
                   })}
@@ -369,46 +370,103 @@ export default function Index() {
             </div>
 
             {/* Decisions table */}
-            <div style={{ marginTop: 16, background: "#f8fafc", borderRadius: 8, padding: "12px 14px", border: "1px solid #e2e8f0" }}>
-              <DecisionsTable />
+            <div style={{ marginTop: 16 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                <div style={{ width: 3, height: 14, background: "#2563eb", borderRadius: 2 }} />
+                <span style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#374151", fontWeight: 600 }}>
+                  Сводная таблица решений
+                </span>
+              </div>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                <thead>
+                  <tr style={{ background: "#1a2332" }}>
+                    <th style={{ padding: "6px 10px", textAlign: "left", color: "#9ca3af", fontWeight: 600, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase" }}>Дата</th>
+                    <th style={{ padding: "6px 10px", textAlign: "left", color: "#9ca3af", fontWeight: 600, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase" }}>Решение</th>
+                    <th style={{ padding: "6px 10px", textAlign: "center", color: "#9ca3af", fontWeight: 600, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase" }}>Статус</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {decisions.map((d, i) => (
+                    <tr key={i} style={{ borderBottom: "1px solid #f3f4f6", background: i % 2 === 0 ? "#fff" : "#f9fafb" }}>
+                      <td style={{ padding: "5px 10px", fontFamily: "'IBM Plex Mono'", fontSize: 10, color: "#6b7280", whiteSpace: "nowrap" }}>{d.date}</td>
+                      <td style={{ padding: "5px 10px", color: d.status === "rejected" ? "#9ca3af" : "#111827", lineHeight: 1.4 }}>
+                        {d.status === "rejected" ? (
+                          <span style={{ textDecoration: "line-through" }}>{d.decision}</span>
+                        ) : (
+                          d.decision
+                        )}
+                        {d.replacedBy && (
+                          <span style={{ marginLeft: 6, fontSize: 9, color: "#2563eb", fontFamily: "'IBM Plex Mono'" }}>→ {d.replacedBy}</span>
+                        )}
+                      </td>
+                      <td style={{ padding: "5px 10px", textAlign: "center" }}>
+                        <span style={{
+                          fontSize: 9, padding: "2px 8px", borderRadius: 2, fontWeight: 600, whiteSpace: "nowrap", display: "inline-block",
+                          ...(d.status === "rejected" ? { background: "#eff6ff", color: "#1d4ed8", border: "1px solid #bfdbfe" }
+                            : d.status === "intermediate" ? { background: "#fefce8", color: "#92400e", border: "1px solid #fde68a" }
+                            : { background: "#f0fdf4", color: "#166534", border: "1px solid #bbf7d0" })
+                        }}>
+                          {d.status === "rejected" ? "Отменено" : d.status === "intermediate" ? "Промежуточное" : "Открыто"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
           {/* Right: Risk matrix + stats */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <div style={{ background: "#f8fafc", borderRadius: 8, padding: "12px 14px", border: "1px solid #e2e8f0" }}>
-              <RiskMatrix />
+          <div style={{ padding: "20px 18px", display: "flex", flexDirection: "column", gap: 16, background: "#f9fafb" }}>
+
+            {/* Risk matrix */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                <div style={{ width: 3, height: 14, background: "#dc2626", borderRadius: 2 }} />
+                <span style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#374151", fontWeight: 600 }}>
+                  Матрица рисков
+                </span>
+              </div>
+              <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 2, padding: "10px" }}>
+                <RiskMatrix />
+              </div>
             </div>
 
-            <div style={{ background: "#f8fafc", borderRadius: 8, padding: "12px 14px", border: "1px solid #e2e8f0" }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "#64748b", fontWeight: 600, marginBottom: 10 }}>
-                Текущий статус
+            {/* Status block */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                <div style={{ width: 3, height: 14, background: "#dc2626", borderRadius: 2 }} />
+                <span style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#374151", fontWeight: 600 }}>
+                  Текущий статус
+                </span>
               </div>
-              <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: 7, padding: "8px 10px", display: "flex", gap: 7, alignItems: "flex-start", marginBottom: 10 }}>
-                <Icon name="AlertOctagon" size={13} style={{ color: "#dc2626", flexShrink: 0, marginTop: 1 }} />
-                <div style={{ fontSize: 10, color: "#7f1d1d", lineHeight: 1.5 }}>
-                  <strong>Реализация приостановлена.</strong> Финальное бизнес-решение не принято. 4 пересмотра за 2 недели.
-                </div>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                {[
-                  { label: "Встреч проведено", value: "6", color: "#0f172a" },
-                  { label: "Решений отменено", value: "3", color: "#2563eb" },
-                  { label: "Активных рисков", value: "4", color: "#dc2626" },
-                  { label: "Открытых вопросов", value: "2", color: "#d97706" },
-                ].map((s) => (
-                  <div key={s.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: 10, color: "#64748b" }}>{s.label}</span>
-                    <span style={{ fontWeight: 700, color: s.color, fontFamily: "'IBM Plex Mono'", fontSize: 13 }}>{s.value}</span>
+              <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 2, overflow: "hidden" }}>
+                <div style={{ background: "#7f1d1d", padding: "8px 12px", display: "flex", gap: 7, alignItems: "flex-start" }}>
+                  <Icon name="AlertOctagon" size={13} style={{ color: "#fca5a5", flexShrink: 0, marginTop: 1 }} />
+                  <div style={{ fontSize: 10, color: "#fecaca", lineHeight: 1.5 }}>
+                    <strong style={{ color: "#fff" }}>Реализация приостановлена.</strong> Финальное бизнес-решение не принято. 4 пересмотра за 2 недели.
                   </div>
-                ))}
+                </div>
+                <div style={{ padding: "10px 12px", display: "flex", flexDirection: "column", gap: 7 }}>
+                  {[
+                    { label: "Встреч проведено", value: "6", color: "#111827" },
+                    { label: "Решений отменено", value: "3", color: "#2563eb" },
+                    { label: "Активных рисков", value: "4", color: "#dc2626" },
+                    { label: "Открытых вопросов", value: "2", color: "#d97706" },
+                  ].map((s) => (
+                    <div key={s.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f3f4f6", paddingBottom: 6 }}>
+                      <span style={{ fontSize: 10, color: "#6b7280" }}>{s.label}</span>
+                      <span style={{ fontWeight: 700, color: s.color, fontFamily: "'IBM Plex Mono'", fontSize: 14 }}>{s.value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div style={{ marginTop: 16, paddingTop: 10, borderTop: "1px solid #f1f5f9", display: "flex", justifyContent: "space-between", fontSize: 10, color: "#94a3b8" }}>
+        <div style={{ padding: "8px 22px", borderTop: "1px solid #e5e7eb", background: "#1a2332", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 9.5, color: "#6b8aad" }}>
           <span>Дорожная карта ключевой аналитики — Службы · v1.0</span>
           <span style={{ fontFamily: "'IBM Plex Mono'" }}>Актуально на 20.03.2026</span>
         </div>
